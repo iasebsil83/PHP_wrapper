@@ -18,6 +18,9 @@ pCXD=$(dirname $CXD)
 
 # -------- EXECUTION --------
 
+#stop
+$pCXD/app/stop
+
 #remove temporary generated files
 #echo "Cleaning temporary files..."
 #rm --recursive --force $pCXD/out

@@ -32,5 +32,5 @@ echo -e "\
 </VirtualHost>" > $pCXD/out/generated.conf
 
 #overwrite/create link in /etc/apache2
-sudo rm                             /etc/apache2/sites-available/$NAME.conf
+sudo rm -f                          /etc/apache2/sites-available/$NAME.conf
 sudo ln -s $pCXD/out/generated.conf /etc/apache2/sites-available/$NAME.conf

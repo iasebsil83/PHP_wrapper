@@ -11,6 +11,9 @@ set -e
 CXD=$(dirname $(realpath $0))
 pCXD=$(dirname $CXD)
 
+#env
+source $pCXD/cfg/srv.env
+
 
 
 
@@ -22,4 +25,5 @@ pCXD=$(dirname $CXD)
 $CXD/clean
 echo "Also removing generated executables..."
 rm --recursive --force $pCXD/out
+sudo rm /etc/apache2/$NAME.conf
 echo "Full removal done."
