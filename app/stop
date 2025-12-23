@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#CXD
+CXD=$(dirname $(readlink -f $0))
+pCXD=$(dirname $CXD)
+
+#srv env
+source $pCXD/cfg/srv.env
+
+#disable site
+sudo a2dissite $NAME.conf
+sudo systemctl restart apache2
+
+#kill php (if existing)
+ps a| grep "php -S $IP:$PORT" | grep -v 'grep' && {
+	pid=$(ps a| grep "php -S $IP:$PORT" | grep -v 'grep' | head -n 1 | cut -d ' ' -f 3)
+	kill -6 $pid
+}

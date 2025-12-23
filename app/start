@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#CXD
+CXD=$(dirname $(readlink -f $0))
+pCXD=$(dirname $CXD)
+
+#srv env
+source $pCXD/cfg/srv.env
+
+#enable site
+sudo a2ensite $NAME.conf
+sudo systemctl restart apache2
+
+#run php
+cd website
+php -S $IP:$PORT &> /dev/null &

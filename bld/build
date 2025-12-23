@@ -1,0 +1,36 @@
+#!/bin/bash
+
+#CXD
+CXD=$(dirname $(readlink -f $0))
+pCXD=$(dirname $CXD)
+
+#stop srv
+$pCXD/app/stop
+
+#env
+source $pCXD/cfg/srv.env
+
+#out dir
+rm -rf $pCXD/out
+mkdir  $pCXD/out
+
+#    ServerName  $NAME.$EXT
+#	ServerAlias www.$NAME.$EXT
+
+#gen apache2 conf
+echo -e "\
+<VirtualHost $IP:$PORT>
+    ServerAdmin admin@localhost
+    DocumentRoot $pCXD$ROOT
+    ErrorLog $pCXD/log/error.log
+    CustomLog $pCXD/log/access.log combined
+    <Directory $pCXD$ROOT>
+        Require all granted
+        Options Indexes FollowSymLinks
+        AllowOverride None
+    </Directory>
+</VirtualHost>" > $pCXD/out/generated.conf
+
+#overwrite/create link in /etc/apache2
+sudo rm                             /etc/apache2/sites-available/$NAME.conf
+sudo ln -s $pCXD/out/generated.conf /etc/apache2/sites-available/$NAME.conf
