@@ -14,13 +14,12 @@ source $pCXD/cfg/srv.env
 rm -rf $pCXD/out
 mkdir  $pCXD/out
 
-#    ServerName  $NAME.$EXT
-#	ServerAlias www.$NAME.$EXT
-
 #gen apache2 conf
 echo -e "\
 <VirtualHost $IP:$PORT>
     ServerAdmin admin@localhost
+    ServerName $NAME.$EXT
+	ServerAlias www.$NAME.$EXT
     DocumentRoot $pCXD$ROOT
     ErrorLog $pCXD/log/error.log
     CustomLog $pCXD/log/access.log combined

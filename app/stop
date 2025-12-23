@@ -12,7 +12,7 @@ sudo a2dissite $NAME.conf
 sudo systemctl restart apache2
 
 #kill php (if existing)
-ps a| grep "php -S $IP:$PORT" | grep -v 'grep' && {
+ps a| grep "php -S $IP:$PORT" | grep -v 'grep' > /dev/null && {
 	pid=$(ps a| grep "php -S $IP:$PORT" | grep -v 'grep' | head -n 1 | cut -d ' ' -f 3)
 	kill -6 $pid
 }
